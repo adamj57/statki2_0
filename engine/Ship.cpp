@@ -4,15 +4,14 @@
 
 #include "Ship.h"
 
-Ship::Ship(Cell* cells[], int cellsLength) {
-    this->cells = cells;
-    this->cellsLength = cellsLength;
+Ship::Ship(std::vector<Cell*> cells) {
+    this->cells = std::move(cells);
     sunk = false;
 }
 
 bool Ship::hasPoint(GridPoint *point) {
-    for (int i = 0; i < cellsLength; i++) {
-        if (*(cells[i]->pos) == *point){
+    for (Cell* cell : cells) {
+        if (*(cell->pos) == *point){
             return true;
         }
     }
@@ -21,11 +20,11 @@ bool Ship::hasPoint(GridPoint *point) {
 
 void Ship::hit(GridPoint *point) {
     if (sunk) {
-        throw SunkExeption();
+        throw SunkException();
     }
-    for (int i = 0; i < cellsLength; i++) {
-        if (*(cells[i]->pos) == *point){
-            cells[i]->setCheck();
+    for (Cell* cell : cells){
+        if (*(cell->pos) == *point) {
+            cell->setCheck();
             sunk = evaluateSunk();
             return;
         }
@@ -35,8 +34,8 @@ void Ship::hit(GridPoint *point) {
 }
 
 bool Ship::evaluateSunk() {
-    for (int i = 0; i < cellsLength; i++) {
-        if (!cells[i]->isChecked()) {
+    for (Cell* cell : cells) {
+        if (!(cell->isChecked())) {
             return false;
         }
     }
@@ -47,10 +46,10 @@ bool Ship::isSunk() {
     return sunk;
 }
 
-int Ship::len() {
-    return cellsLength;
+size_t Ship::size() {
+    return cells.size();
 }
 
-const char* Ship::SunkExeption::what() const noexcept {
+const char* Ship::SunkException::what() const noexcept {
     return "This ship did already sunk!";
 }

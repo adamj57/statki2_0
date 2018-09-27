@@ -5,25 +5,29 @@
 #ifndef STATKI2_0_SHIP_H
 #define STATKI2_0_SHIP_H
 
-
+#include <vector>
 #include "Cell.h"
+#include "../util/interface/IMeasurable.h"
 
-class Ship {
+class Ship: public IMeasurable {
 public:
-    class SunkExeption: public std::exception {
+    class SunkException: public std::exception {
     public:
         const char* what() const noexcept override;
     };
-    explicit Ship(Cell* cells[], int cellsLength);
+
+    explicit Ship(std::vector<Cell*> cells);
+
     bool hasPoint(GridPoint* point);
     void hit(GridPoint* point);
     bool isSunk();
-    int len();
+
+    size_t size() override;
 
 private:
     bool evaluateSunk();
-    Cell** cells;
-    int cellsLength;
+
+    std::vector<Cell*> cells;
     bool sunk;
 };
 

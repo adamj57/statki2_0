@@ -4,6 +4,10 @@
 
 #include "str.h"
 
-std::string str(IStringable* o){
-    return o->toString();
+namespace std {
+    std::string to_string(IStringable* o){
+        return o->toString();
+    }
 }
+
+

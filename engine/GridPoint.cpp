@@ -64,7 +64,15 @@ std::string GridPoint::toString() {
     return stream.str();
 }
 
-const char* GridPoint::OutOfRangeException::what() const noexcept{
+int GridPoint::getX() {
+    return x;
+}
+
+int GridPoint::getY() {
+    return y;
+}
+
+const char* GridPoint::OutOfRangeException::what() const noexcept {
     std::ostringstream stream;
     stream << "OutOfRangeException: Variable \"" << variable << "\", expected " << lb << "<= " << variable << " <= "
             << hb << ", got " << val << " instead.";

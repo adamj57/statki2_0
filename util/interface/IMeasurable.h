@@ -6,9 +6,11 @@
 #define STATKI2_0_IMEASURABLE_H
 
 
+#include <cstdio>
+
 class IMeasurable {
 public:
-    virtual int len()=0;
+    virtual size_t size()=0;
 };
 
 

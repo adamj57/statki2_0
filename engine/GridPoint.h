@@ -14,11 +14,18 @@ enum Direction {LEFT, RIGHT, UP, DOWN};
 class GridPoint: public IStringable {
 public:
     GridPoint(int x, int y);
+
     GridPoint* move(Direction dir, int times);
     GridPoint* move(Direction dir);
+
+    int getX();
+    int getY();
+
     bool isOn(Direction dir, GridPoint &other);
+
     bool operator==(GridPoint &other);
     std::string toString() override;
+
     class OutOfRangeException : std::exception{
     public:
         OutOfRangeException(std::string variable, int lb, int hb, int val);

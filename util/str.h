@@ -8,6 +8,8 @@
 #include <string>
 #include "interface/IStringable.h"
 
-std::string str(IStringable* o);
+namespace std {
+    std::string to_string(IStringable* o);
+}
 
 #endif //STATKI2_0_STR_H

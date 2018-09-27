@@ -4,6 +4,8 @@
 
 #include "len.h"
 
-int len(IMeasurable* o){
-    return o->len();
+namespace std {
+    size_t size(IMeasurable *o) {
+        return o->size();
+    }
 }
