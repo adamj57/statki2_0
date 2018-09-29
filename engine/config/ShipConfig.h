@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include "../base/Grid.h"
 
 
 class ShipConfig {
@@ -17,6 +18,8 @@ public:
         friend ShipConfig;
     public:
         ShipDetails(int length, int quantity);
+        int getLength();
+        int getQuantity();
 
     private:
         int length;
@@ -53,8 +56,6 @@ private:
                                                                new ShipDetails(2, 3), new ShipDetails(1, 4)}}};
 
 };
-
-
 
 
 #endif //STATKI2_0_SHIPCONFIG_H

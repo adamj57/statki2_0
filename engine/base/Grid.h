@@ -12,12 +12,15 @@
 #include "Cell.h"
 #include "Result.h"
 #include "Ship.h"
+#include "../config/ShipConfig.h"
 
 class Grid: public IStringable {
 public:
     Grid();
+    explicit Grid(ShipConfig* config);
 
     void placeShip(GridPoint* p0, Direction direction, int length);
+    void placeRandomShip(int length);
     Result check(GridPoint* point);
     void mark(GridPoint* point, std::string marker);
 

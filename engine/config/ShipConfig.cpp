@@ -10,6 +10,14 @@ ShipConfig::ShipDetails::ShipDetails(int length, int quantity) {
     this->quantity = quantity;
 }
 
+int ShipConfig::ShipDetails::getQuantity() {
+    return quantity;
+}
+
+int ShipConfig::ShipDetails::getLength() {
+    return length;
+}
+
 
 ShipConfig::ShipConfig(std::string configName) {
     auto c = predefined.find(configName);

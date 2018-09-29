@@ -5,12 +5,21 @@
 #include "Grid.h"
 #include "../../util/len.h"
 #include "../../util/str.h"
+#include "../../util/random.h"
 
 Grid::Grid() {
     grid = generateBlankGrid();
     checkedCells = 0;
     checkedShipCells = 0;
 
+}
+
+Grid::Grid(ShipConfig *config): Grid() {
+    for (ShipConfig::ShipDetails* shipDetail : *config) {
+        for (int i = 0; i < shipDetail->getQuantity(); i++) {
+            placeRandomShip(shipDetail->getLength());
+        }
+    }
 }
 
 std::array<std::array<Cell*, 10>, 10> Grid::generateBlankGrid() {
@@ -39,6 +48,29 @@ void Grid::placeShip(GridPoint* p0, Direction direction, int length) {
     }
     Ship* ship = new Ship(cells);
     ships.push_back(ship);
+}
+
+void Grid::placeRandomShip(int length) {
+    bool shipPlaced = false;
+    int triesCount = 0;
+
+    while(!shipPlaced && triesCount < 50){
+        GridPoint point(random(0, 9), random(0, 9));
+        auto direction = static_cast<Direction>(random(0, 3));
+
+        try {
+            placeShip(&point, direction, length);
+            shipPlaced = true;
+        } catch (const char *) { //TODO Change to proper exception
+            (void)0; // NOP
+        }
+
+        triesCount++;
+    }
+
+    if (!shipPlaced) {
+        throw "ShipPlacementException"; //TODO Change to proper exception
+    }
 }
 
 void Grid::checkShipNearby(GridPoint* point) {
