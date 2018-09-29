@@ -7,7 +7,7 @@
 
 #include <vector>
 #include "Cell.h"
-#include "../util/interface/IMeasurable.h"
+#include "../../util/interface/IMeasurable.h"
 
 class Ship: public IMeasurable {
 public:

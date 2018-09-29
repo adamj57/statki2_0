@@ -3,4 +3,4 @@ project(statki2_0)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(statki2_0 main.cpp engine/Result.cpp engine/Result.h engine/GridPoint.cpp engine/GridPoint.h util/interface/IStringable.cpp util/interface/IStringable.h util/str.cpp util/str.h engine/Cell.cpp engine/Cell.h engine/Ship.cpp engine/Ship.h util/interface/IMeasurable.cpp util/interface/IMeasurable.h util/len.cpp util/len.h engine/Grid.cpp engine/Grid.h)
+add_executable(statki2_0 main.cpp engine/base/Result.cpp engine/base/Result.h engine/base/GridPoint.cpp engine/base/GridPoint.h util/interface/IStringable.cpp util/interface/IStringable.h util/str.cpp util/str.h engine/base/Cell.cpp engine/base/Cell.h engine/base/Ship.cpp engine/base/Ship.h util/interface/IMeasurable.cpp util/interface/IMeasurable.h util/len.cpp util/len.h engine/base/Grid.cpp engine/base/Grid.h engine/config/ShipConfig.cpp engine/config/ShipConfig.h)

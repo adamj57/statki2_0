@@ -6,7 +6,7 @@
 #define STATKI2_0_RESULT_H
 
 #include <string>
-#include "../util/interface/IStringable.h"
+#include "../../util/interface/IStringable.h"
 
 enum CheckResult {MISS, HIT, SUNK};
 

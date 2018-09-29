@@ -3,8 +3,8 @@
 //
 
 #include "Grid.h"
-#include "../util/len.h"
-#include "../util/str.h"
+#include "../../util/len.h"
+#include "../../util/str.h"
 
 Grid::Grid() {
     grid = generateBlankGrid();

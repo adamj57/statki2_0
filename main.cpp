@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
-#include "engine/Result.h"
-#include "engine/GridPoint.h"
+#include "engine/base/Result.h"
+#include "engine/base/GridPoint.h"
 #include "util/str.h"
-#include "engine/Cell.h"
+#include "engine/base/Cell.h"
 #include "util/interface/IStringable.h"
-#include "engine/Ship.h"
+#include "engine/base/Ship.h"
+#include "engine/config/ShipConfig.h"
 
 int main() {
     auto* r1 = new Result(SUNK);
@@ -29,11 +30,20 @@ int main() {
     s1->hit(new GridPoint(1, 1));
     std::cout << s1->isSunk() << std::endl;
 
+    auto* sc1 = new ShipConfig();
+    sc1->addShipDetails(new ShipConfig::ShipDetails(1, 2));
+    sc1->addShipDetails(new ShipConfig::ShipDetails(2, 1));
+    sc1->addShipDetails(new ShipConfig::ShipDetails(6, 1));
+    sc1->addShipDetails(new ShipConfig::ShipDetails(3, 1));
+
+    sc1->finalize();
+
+
     try {
         auto* gp2 = new GridPoint(1, 10);
         std::cout << std::to_string(gp2) << std::endl;
     } catch (GridPoint::OutOfRangeException& e) {
-        std::cout << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
         return -1;
     }
 

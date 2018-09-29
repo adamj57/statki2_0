@@ -7,7 +7,7 @@
 
 
 #include <string>
-#include "../util/interface/IStringable.h"
+#include "../../util/interface/IStringable.h"
 
 enum Direction {LEFT, RIGHT, UP, DOWN};
 
