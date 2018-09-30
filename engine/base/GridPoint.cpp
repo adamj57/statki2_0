@@ -72,6 +72,12 @@ int GridPoint::getY() {
     return y;
 }
 
+GridPoint::GridPoint(GridPoint &point) {
+    this->x = point.getX();
+    this->y = point.getY();
+
+}
+
 const char* GridPoint::OutOfRangeException::what() const noexcept {
     std::ostringstream stream;
     stream << "OutOfRangeException: Variable \"" << variable << "\", expected " << lb << "<= " << variable << " <= "

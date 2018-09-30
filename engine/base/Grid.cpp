@@ -2,6 +2,8 @@
 // Created by user on 2018-09-27.
 //
 
+#include <sstream>
+#include <cstring>
 #include "Grid.h"
 #include "../../util/len.h"
 #include "../../util/str.h"
@@ -61,7 +63,7 @@ void Grid::placeRandomShip(int length) {
         try {
             placeShip(&point, direction, length);
             shipPlaced = true;
-        } catch (const char *) { //TODO Change to proper exception
+        } catch (ShipPlacementException&) {
             (void)0; // NOP
         }
 
@@ -69,7 +71,10 @@ void Grid::placeRandomShip(int length) {
     }
 
     if (!shipPlaced) {
-        throw "ShipPlacementException"; //TODO Change to proper exception
+        std::ostringstream stream;
+        stream << "Ship of length: " << length << " could not be matched to the random created board after 50 tries -"
+                                               << " you have bad luck!";
+        throw ShipPlacementException(stream.str());
     }
 }
 
@@ -94,8 +99,10 @@ void Grid::checkOffset(GridPoint* point, int x_offset, int y_offset) {
         return;
     }
     if (cellAt(new GridPoint(point->getX() + x_offset, point->getY() + y_offset))->isShipCell()) {
-        throw "ShipPlacementException";
-        //TODO: Create ShipPlacementException
+        std::ostringstream stream;
+        stream << "The ship is placed nearby - you can't place ship cell there (x: " << point->getX() << ", y: "
+        << point->getY() << ") according to the rules!";
+        throw ShipPlacementException(stream.str());
     }
 }
 
@@ -153,3 +160,15 @@ std::string Grid::toString() {
     return str;
 }
 
+Grid::ShipPlacementException::ShipPlacementException(std::string desc) {
+    this->desc = std::move(desc);
+
+}
+
+const char *Grid::ShipPlacementException::what() {
+    std::ostringstream stream;
+    stream << "ShipPlacementException: " << desc << std::endl;
+    char* dst = new char[strlen(stream.str().c_str())+1];
+    strcpy(dst, stream.str().c_str());
+    return dst;
+}

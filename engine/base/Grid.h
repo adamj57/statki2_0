@@ -16,6 +16,14 @@
 
 class Grid: public IStringable {
 public:
+    class ShipPlacementException: public std::exception {
+    public:
+        ShipPlacementException(std::string desc);
+        const char * what() override;
+
+    private:
+        std::string desc;
+    };
     Grid();
     explicit Grid(ShipConfig* config);
 

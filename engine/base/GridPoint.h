@@ -14,6 +14,7 @@ enum Direction {LEFT, RIGHT, UP, DOWN};
 class GridPoint: public IStringable {
 public:
     GridPoint(int x, int y);
+    GridPoint(GridPoint& point);
 
     GridPoint* move(Direction dir, int times);
     GridPoint* move(Direction dir);

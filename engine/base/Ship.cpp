@@ -2,6 +2,7 @@
 // Created by user on 2018-09-27.
 //
 
+#include <sstream>
 #include "Ship.h"
 
 Ship::Ship(std::vector<Cell*> cells) {
@@ -29,8 +30,7 @@ void Ship::hit(GridPoint *point) {
             return;
         }
     }
-    throw "AAAAAAAAA";
-    //TODO: Create NotInShipException and throw it here
+    throw NotInShipException(point);
 }
 
 bool Ship::evaluateSunk() {
@@ -52,4 +52,13 @@ size_t Ship::size() {
 
 const char* Ship::SunkException::what() const noexcept {
     return "This ship did already sunk!";
+}
+
+Ship::NotInShipException::NotInShipException(GridPoint* point) {
+    this->point = new GridPoint(*point);
+}
+
+const char *Ship::NotInShipException::what() const noexcept {
+    std::ostringstream stream;
+    stream << "NotInShipException: Point x: " << point->getX() << ", y: " << point->getY() << " doesn't belong to the ship!";
 }

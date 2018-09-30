@@ -13,8 +13,20 @@ class Ship: public IMeasurable {
 public:
     class SunkException: public std::exception {
     public:
-        const char* what() const noexcept override;
+        const char * what() const noexcept override;
     };
+
+    class NotInShipException: public std::exception {
+    public:
+        explicit NotInShipException(GridPoint* point);
+        const char * what() const noexcept override;
+
+    private:
+        GridPoint* point;
+    };
+
+    //TODO: add const noexcept to what
+    //TODO: add __LINE__ and __FILE__ to the exception throwers
 
     explicit Ship(std::vector<Cell*> cells);
 

@@ -26,6 +26,16 @@ public:
         int quantity;
     };
 
+    class ConfigNotFoundException: public std::exception {
+    public:
+        ConfigNotFoundException(std::string name);
+        const char * what() override;
+
+    private:
+        std::string name;
+
+    };
+
     ShipConfig();
     explicit ShipConfig(std::string configName);
 

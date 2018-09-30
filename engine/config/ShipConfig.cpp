@@ -3,6 +3,8 @@
 //
 
 #include <algorithm>
+#include <sstream>
+#include <cstring>
 #include "ShipConfig.h"
 
 ShipConfig::ShipDetails::ShipDetails(int length, int quantity) {
@@ -25,8 +27,7 @@ ShipConfig::ShipConfig(std::string configName) {
     if (c != predefined.end()) {
         config = c->second;
     } else {
-        throw "Config of name *blank* does not exist!";
-        //TODO: create ConfigNotFoundException
+        throw ConfigNotFoundException(configName);
     }
 }
 
@@ -78,3 +79,15 @@ ShipConfig::const_iterator ShipConfig::cend() const {
     return config.cend();
 }
 
+ShipConfig::ConfigNotFoundException::ConfigNotFoundException(std::string name) {
+    this->name = std::move(name);
+
+}
+
+const char *ShipConfig::ConfigNotFoundException::what() {
+    std::ostringstream stream;
+    stream << "Config of name " << name << " does not exist!";
+    char* dst = new char[strlen(stream.str().c_str())+1];
+    strcpy(dst, stream.str().c_str());
+    return dst;
+}
