@@ -7,6 +7,7 @@
 #include <cstring>
 #include "ShipConfig.h"
 
+
 ShipConfig::ShipDetails::ShipDetails(int length, int quantity) {
     this->length = length;
     this->quantity = quantity;

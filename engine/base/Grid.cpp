@@ -4,10 +4,13 @@
 
 #include <sstream>
 #include <cstring>
+#include <iostream>
 #include "Grid.h"
 #include "../../util/len.h"
 #include "../../util/str.h"
 #include "../../util/random.h"
+
+
 
 Grid::Grid() {
     grid = generateBlankGrid();
@@ -35,11 +38,20 @@ std::array<std::array<Cell*, 10>, 10> Grid::generateBlankGrid() {
 }
 
 void Grid::placeShip(GridPoint* p0, Direction direction, int length) {
+    GridPoint starting = *p0;
     std::vector<GridPoint*> valid_coords;
     for (int i = 0; i < length; i++) {
         checkShipNearby(p0);
         valid_coords.push_back(p0);
-        p0 = p0->move(direction);
+        try {
+            p0 = p0->move(direction);
+        } catch (GridPoint::OutOfRangeException&) {
+            std::ostringstream stream;
+            stream << "Ship of length: " << length << ", starting from x: " << starting.getX() << ", y: " << starting.getY()
+                   << " in direction \"" << std::to_string(direction) << "\".";
+            throw ShipPlacementException(stream.str());
+        }
+
     }
     std::vector<Cell*> cells;
     for (GridPoint* point : valid_coords) {
@@ -57,8 +69,9 @@ void Grid::placeRandomShip(int length) {
     int triesCount = 0;
 
     while(!shipPlaced && triesCount < 50){
-        GridPoint point(random(0, 9), random(0, 9));
-        auto direction = static_cast<Direction>(random(0, 3));
+        GridPoint point(util::random_in_range(0, 9), util::random_in_range(0, 9));
+        auto direction = static_cast<Direction>(util::random_in_range(0, 3));
+//        std::cout << point.getX() << ", " << point.getY() << ", " << length << ", " << std::to_string(direction) << std::endl;
 
         try {
             placeShip(&point, direction, length);
@@ -165,7 +178,7 @@ Grid::ShipPlacementException::ShipPlacementException(std::string desc) {
 
 }
 
-const char *Grid::ShipPlacementException::what() {
+const char *Grid::ShipPlacementException::what() const noexcept {
     std::ostringstream stream;
     stream << "ShipPlacementException: " << desc << std::endl;
     char* dst = new char[strlen(stream.str().c_str())+1];

@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "../base/Grid.h"
+
 
 
 class ShipConfig {
@@ -28,8 +28,8 @@ public:
 
     class ConfigNotFoundException: public std::exception {
     public:
-        ConfigNotFoundException(std::string name);
-        const char * what() override;
+        explicit ConfigNotFoundException(std::string name);
+        const char * what();
 
     private:
         std::string name;
@@ -63,7 +63,8 @@ private:
 
     ship_config config;
     predefined_config_map predefined = {{"polish", ship_config{new ShipDetails(4, 1), new ShipDetails(3, 2),
-                                                               new ShipDetails(2, 3), new ShipDetails(1, 4)}}};
+                                                               new ShipDetails(2, 3), new ShipDetails(1, 4)}},
+                                        {"test", ship_config{new ShipDetails(1, 2)}}};
 
 };
 

@@ -5,7 +5,6 @@
 #ifndef STATKI2_0_GRID_H
 #define STATKI2_0_GRID_H
 
-
 #include <array>
 #include <vector>
 #include "GridPoint.h"
@@ -18,8 +17,8 @@ class Grid: public IStringable {
 public:
     class ShipPlacementException: public std::exception {
     public:
-        ShipPlacementException(std::string desc);
-        const char * what() override;
+        explicit ShipPlacementException(std::string desc);
+        const char * what() const noexcept override;
 
     private:
         std::string desc;
@@ -51,6 +50,5 @@ private:
     int checkedShipCells;
 
 };
-
 
 #endif //STATKI2_0_GRID_H

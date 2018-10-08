@@ -37,7 +37,7 @@ void Cell::setMarker(std::string marker) {
 }
 
 std::string Cell::toString() {
-    if (marker != "\0") {
+    if (marker == "\0") {
         if (shipCell) {
             if (checked) {
                 return "V";

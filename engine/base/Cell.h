@@ -27,7 +27,7 @@ public:
     GridPoint* pos;
 
 private:
-    bool shipCell, checked;
+    bool shipCell = false, checked = false;
     std::string marker = "\0";
 };
 

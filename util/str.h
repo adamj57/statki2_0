@@ -7,9 +7,11 @@
 
 #include <string>
 #include "interface/IStringable.h"
+#include "../engine/base/GridPoint.h"
 
 namespace std {
     std::string to_string(IStringable* o);
+    std::string to_string(Direction o);
 }
 
 #endif //STATKI2_0_STR_H

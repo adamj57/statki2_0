@@ -9,7 +9,9 @@
 #include <string>
 #include "../../util/interface/IStringable.h"
 
-enum Direction {LEFT, RIGHT, UP, DOWN};
+enum Direction {
+    LEFT, RIGHT, UP, DOWN
+};
 
 class GridPoint: public IStringable {
 public:
