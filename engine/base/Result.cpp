@@ -46,3 +46,7 @@ std::string Result::toString() {
         return stringStream.str();
     }
 }
+
+size_t Result::size() {
+    return static_cast<size_t>(length);
+}

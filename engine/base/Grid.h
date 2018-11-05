@@ -36,6 +36,8 @@ public:
 
     std::string toString() override;
 
+    ShipConfig* sc;
+
 private:
     std::array<std::array<Cell*, 10>, 10> generateBlankGrid();
 

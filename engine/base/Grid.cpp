@@ -62,6 +62,7 @@ void Grid::placeShip(GridPoint* p0, Direction direction, int length) {
     }
     Ship* ship = new Ship(cells);
     ships.push_back(ship);
+    sc->addShipOfLength(length);
 }
 
 void Grid::placeRandomShip(int length) {
